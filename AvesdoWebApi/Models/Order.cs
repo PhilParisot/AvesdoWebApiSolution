@@ -3,9 +3,11 @@ using AvesdoWebApi;
 
 public class Order
 {
+    public int Id { get; }
     private List<Pizza> Pizzas { get; set; }
     public bool Completed { get; }
-    // public Address address...
+    // public ShopAddress shopAddress...
+    // public DestinationAddress destinationAddress...
     // public Distance distance...
 
     public Order(List<Pizza> pizzas)
@@ -13,6 +15,8 @@ public class Order
         if (pizzas is null)
             throw new ArgumentNullException(nameof(pizzas), $"{nameof(pizzas)} cannot be null");
 
+        // Using Guid to genereate unique IDs and to avoid any potential enumeration vulnerabilities
+        this.Id = int.Parse(Guid.NewGuid().ToString("N"));
         this.Pizzas = pizzas;
         this.Completed = false;
     }
